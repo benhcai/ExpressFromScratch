@@ -11,22 +11,21 @@
 //   this._router = undefined;
 // };
 
+console.clear();
+
 const http = require("http");
-const httpMethods = require("./lib/methods");
+const methods = require("./lib/methods").getHttpMethods();
+const router = require("./lib/Router");
 
 // const app = {};
 // exports = module.exports = app;
 
 const app = (exports = module.exports = {});
 
-app.getHttpMethods = httpMethods.getHttpMethods;
-
 app.listen = function listen() {
   const server = http.createServer(this);
   return server.listen.apply(server, arguments);
 };
-
-exports.abc = function go() {};
 
 app.init = function () {
   this.cache = {};
@@ -35,3 +34,10 @@ app.init = function () {
 
   this._router = undefined;
 };
+
+methods.forEach((method) => {
+  app[method] = function (path) {
+    const route = router;
+    return 1111;
+  };
+});
